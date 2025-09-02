@@ -10,5 +10,4 @@ printf("entrer le ;onton en $\n");
  }
 
 
-  printf("enter the radus\n");
- scanf("%f", &r);
+  
