@@ -10,9 +10,7 @@ int main(){
     if(nt>100 || nt<0){
             r=11; }
     switch(r){ 
-        case 10: 
-        k='A'; 
-        break; 
+        case 10:
         case 9:
         k='A';
         break;

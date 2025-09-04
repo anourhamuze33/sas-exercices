@@ -12,11 +12,11 @@ int main(){
    }
    
        
-   else if(a=a1 && m<m1){
+   else if(a==a1 && m<m1){
    printf("%d/%d/%d est plus tot que %d/%d/%d", m,j,a,m1,j1,a1);
    }
    
-   else if(a=a1 && m<m1 && j<j1){
+   else if(a==a1 && m==m1 && j<j1){
    printf("%d/%d/%d est plus tot que %d/%d/%d", m,j,a,m1,j1,a1);
    }
    
