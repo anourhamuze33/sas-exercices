@@ -8,11 +8,11 @@ char id[30];
 }inf;
 
 float moyenne(inf T[][20],int l, int j){
- float mo=0, moye;
+ float somme=0, moye;
         for(int i=2; i<=j+2; i++){
-             mo = mo + T[l][i].notes;
+             somme = somme + T[l][i].notes;
         }
-        moye =mo/j;
+        moye =somme/j;
         return moye;
 }
 
@@ -47,7 +47,7 @@ int main()
      inf noteId[350][20];
      inf d;
      int nbrnote,nbreleve,noteSize=0,eleveSize=0,op,j,s;
-     
+          do{
            printf("_______________hello________________\n\n\n");
            printf("entrer le nombre des eleve premier et les nombre des notes/matiere: ");
            scanf("%d %d",&nbreleve,&nbrnote);
@@ -80,16 +80,18 @@ int main()
                 }while(noteId[i][j].notes<0 || noteId[i][j].notes>20);
                 }
               }
+              do{
            printf("\n\n1: affichage des notes\n");
            printf("2: calcule du moyenne des notes de chaque eleve\n");
            printf("3: calcule de max\n");
            printf("4: calcule de min\n");
            printf("5: moyenne du classe\n");
            printf("6: Bulletin individuel\n");
-           printf("7: exit \n");
+           printf("7: ajout d'un eleve \n");
+           printf("8: exit \n");
            printf("\nvotre optin est: ");
            scanf("%d",&op);
-           do{
+           
                  switch(op){
                      case 1:
                         printf("tapper\n");
@@ -115,7 +117,7 @@ int main()
                              d.id[strcspn(d.id, "\n")] = '\0';
                              for(int i=0; i<eleveSize;i++){
                               if(strcmp(d.id,noteId[i][1].id)==0){
-                                printf("ID : %s d'eleve %s \na", d.id,noteId[i][0].name);
+                                printf("ID : %s d'eleve %s \n", d.id,noteId[i][0].name);
                                  for(int j=2; j<=noteSize+1;j++){
                                   printf("la note %d est: %.2f\n",j-1, noteId[i][j].notes);
                                  } 
@@ -139,7 +141,7 @@ int main()
                              printf("____________________%d: moyenne______________________\n",op);
                              for(int i=0; i<eleveSize;i++){
                                printf("name: %s     ID : %s ",noteId[i][0].name ,noteId[i][1].id);
-                               printf("  moyenne est: %.2f\n",moyenne(noteId,i,noteSize));
+                               printf("  moyenne est: %.2f\n", moyenne(noteId,i,noteSize));
                              }
                             break;
                             case 2:
@@ -247,7 +249,7 @@ int main()
                                 printf("______bulltin______\nID : %s\neleve: %s \n", d.id,noteId[i][0].name);
                                  for(int j=2; j<=noteSize+1;j++){
                                   printf("la note %d est: %.2f\n",j-1, noteId[i][j].notes);
-                                 } 
+                                 }
                               }
                               else{
                               printf("ID not available");
@@ -257,7 +259,7 @@ int main()
                                
                                
                                
-                               float moyclasse=0;
+                             float moyclasse=0;
                              float sommeclasse=0;
                              for(int i=0; i<eleveSize;i++){
                                sommeclasse=moyenne(noteId,i,noteSize)+sommeclasse;
@@ -265,12 +267,49 @@ int main()
                              moyclasse=sommeclasse/eleveSize;
                              printf("le moyenne de classe est: %.2f", moyclasse);
                              printf("\nla moyenne est: %.2f",moyenne(noteId,d.notes,noteSize));
+                            }
                         break;
+                        case 7:
+                         int ajout;
+                          printf("_______________ajout d'eleve________________\n\n\n");
+                          printf("entrer le nombre des eleve a ajoutee: ");
+                          scanf("%d",&ajout);
+                          int c;
+                           while ((c = getchar()) != '\n' && c != EOF);
+              for(int i=eleveSize; i<ajout;i++){
+                 printf("entrer le nom et prenom d'eleve %d: ",i+1);
+                 fgets(noteId[i][0].name, sizeof(noteId[i][0].name), stdin);
+                 noteId[i][0].name[strcspn(noteId[i][0].name, "\n")] = '\0';
+              }
+     
+              for(int i=eleveSize;i<=ajout;i++){
+                eleveSize++;
+                printf("entrer ID et le no;  de l'eleve %d: \nname: %s",i+1,noteId[i][0].id);
+                fgets(noteId[i][0].id, sizeof(noteId[i][0].id), stdin);
+                noteId[i][0].id[strcspn(noteId[i][0].id, "\n")] = '\0';
+                printf("entrer ID et le no;  de l'eleve %d:\nID: %s",i+1,noteId[i][1].id);
+                fgets(noteId[i][1].id, sizeof(noteId[i][1].id), stdin);
+                noteId[i][1].id[strcspn(noteId[i][1].id, "\n")] = '\0';
+                
+                for(int j=0;j<=nbrnote+1;j++){
+                    do{
+                     if(j<=1){ continue;}
+                     else{
+                      printf("entrer la note %d : ",j-1);
+                      scanf("%f",&noteId[i][j].notes);
+                      getchar();
+                      if(i==0){noteSize++;}
+                     }
+                    
+                }while(noteId[i][j].notes<0 || noteId[i][j].notes>20);
                 }
+              }
+
                  }
-           }while(op>=7);
-           if(op==7){
+           }while(op<=7);
+           if(op==8){
                exit(0);
            }
+    }while(op<1 || op>7);
     return 0;
 }
